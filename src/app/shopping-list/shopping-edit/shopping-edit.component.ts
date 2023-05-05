@@ -10,6 +10,10 @@ import { ShoppingListService } from '../shopping-list.service';
 export class ShoppingEditComponent {
   name:string;
   amount:number;
+  ingredient:Ingredient={
+    name:'',
+    amount:0,
+  }
 
  @ViewChild('nameInput') nameInputRef:ElementRef;
  @ViewChild('amountInput') amountInputRef:ElementRef;
@@ -33,9 +37,13 @@ export class ShoppingEditComponent {
     this.slService.addIngredient(newIngredient); 
     
   }
-  submit( ){
+  submit(shoppinglistForm:any ){
     console.log(JSON.stringify(this.name));
     console.log(this.shoppinglistForm);
+    console.log(this.ingredient);
+    console.log(shoppinglistForm.value);
+    
+    
     
     
   }
