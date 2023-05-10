@@ -39,13 +39,6 @@ export class RecipeEditComponent {
     let recipeImagePath = '';
     let recipeDescription = '';
 
-    this.recipeForm = new FormGroup({
-      name: new FormControl(recipeName),
-      imagePath: new FormControl(recipeImagePath),
-      description: new FormControl(recipeDescription),
-      ingredients: new FormArray([]),
-    });
-
     if (this.editMode) {
       console.log(this.id);
 
@@ -54,11 +47,18 @@ export class RecipeEditComponent {
       recipeImagePath = recipe.imagePath;
       recipeDescription = recipe.description;
 
+      this.recipeForm = new FormGroup({
+        name: new FormControl(recipeName),
+        imagePath: new FormControl(recipeImagePath),
+        description: new FormControl(recipeDescription),
+        ingredients: new FormArray([]),
+      });
+
       if (recipe['ingredients']) {
         for (let ingredient of recipe.ingredients) {
-          const Ingredients = this.recipeForm.get('ingredients') as FormArray;
+          const ingredients = this.recipeForm.get('ingredients') as FormArray;
 
-          Ingredients.push(
+          ingredients.push(
             new FormGroup({
               name: new FormControl(ingredient.name),
               amount: new FormControl(ingredient.amount),
