@@ -7,7 +7,7 @@ import { Recipe } from '../recipe.model';
 @Component({
   selector: 'app-recipe-edit',
   templateUrl: './recipe-edit.component.html',
-  styleUrls: ['./recipe-edit.component.css']
+  styleUrls: ['./recipe-edit.component.css'],
 })
 export class RecipeEditComponent {
   id: number;
@@ -33,6 +33,7 @@ export class RecipeEditComponent {
     });
   }
   onSubmit() {
+<<<<<<< HEAD
    
       // // const newRecipe =new Recipe(
       // //   this.recipeForm.value['name'],
@@ -57,6 +58,9 @@ export class RecipeEditComponent {
         ])
       })
     );
+=======
+    console.log(this.recipeForm);
+>>>>>>> aca3739a97358a594bf5d4d9703ec87e1c6ee8d2
   }
   private initForm() {
     let recipeName = '';
@@ -72,9 +76,15 @@ export class RecipeEditComponent {
       recipeDescription = recipe.description;
 
       this.recipeForm = new FormGroup({
+<<<<<<< HEAD
         name: new FormControl(recipeName,Validators.required),
         imagePath: new FormControl(recipeImagePath,Validators.required),
         description: new FormControl(recipeDescription,Validators.required),
+=======
+        name: new FormControl(recipeName),
+        imagePath: new FormControl(recipeImagePath),
+        description: new FormControl(recipeDescription),
+>>>>>>> aca3739a97358a594bf5d4d9703ec87e1c6ee8d2
         ingredients: new FormArray([]),
       });
 
@@ -84,11 +94,16 @@ export class RecipeEditComponent {
 
           ingredients.push(
             new FormGroup({
+<<<<<<< HEAD
               name: new FormControl(ingredient.name,Validators.required),
               amount: new FormControl(ingredient.amount,[
                 Validators.required,
                 Validators.pattern(/^[1-9]+[0-9]*$/)
               ]),
+=======
+              name: new FormControl(ingredient.name),
+              amount: new FormControl(ingredient.amount),
+>>>>>>> aca3739a97358a594bf5d4d9703ec87e1c6ee8d2
             })
           );
         }
