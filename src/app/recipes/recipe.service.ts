@@ -33,11 +33,13 @@ export class RecipeService{
       }
 
       getRecipe(index:number){
+        console.log(index,this.recipes,this.recipes[index]);
+        
         return this.recipes[index];
       }
       
-    addIngredientsToShoppingList(ingredients : Ingredient[]){
-        this.slService.addIngredients(ingredients)
+    addIngredientsToShoppingList(recipeIngredients : Ingredient[]){
+        this.slService.addIngredients(recipeIngredients)
     }  
     addRecipe(recipe: Recipe){
       this.recipes.push(recipe);
