@@ -28,19 +28,30 @@ export class RecipeEditComponent {
       }
     });
 
+    // Initialize Recipe Form
     this.initForm();
   }
 
+  /**
+   * On clicking save button
+   * Functionality to submit recipe form
+   */
   public onSubmit(): void {
     if (this.editMode) {
+      // Update Recipe details using current form details
       this.recipeService.updateRecipe(this.id, this.recipeForm.value);
     } else {
+      // Add new Recipe using current form details
       this.recipeService.addRecipe(this.recipeForm.value);
     }
 
     console.log('onSubmit', this.recipeForm);
   }
 
+  /**
+   * On clicking add ingredient button
+   * Functionality to add new ingredient form group to recipeIngredients formArray
+   */
   public onAddIngredient(): void {
     (<FormArray>this.recipeForm.get('recipeIngredients')).push(
       new FormGroup({
@@ -53,22 +64,29 @@ export class RecipeEditComponent {
     );
   }
 
+  /**
+   * Function to initialize the form
+   * 1. Initialize recipe Form
+   * 2. If in edit mode, fetch the current recipe details
+   * 3. Pre-populate the recipeForm if editing a recipe
+   * 4. Pre-populate the recipeIngredients form array
+   */
   private initForm(): void {
     this.recipeForm = new FormGroup({
       name: new FormControl('', Validators.required),
       imagePath: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
       recipeIngredients: new FormArray([]),
-    });
+    }); //1
 
     if (this.editMode) {
-      const recipe: Recipe = this.recipeService.getRecipe(this.id);
+      const recipe: Recipe = this.recipeService.getRecipe(this.id); //2
 
       this.recipeForm.patchValue({
         name: recipe.name,
         imagePath: recipe.imagePath,
         description: recipe.description,
-      });
+      }); //3
 
       if (recipe['ingredients']) {
         for (let ingredient of recipe.ingredients) {
@@ -84,7 +102,7 @@ export class RecipeEditComponent {
                 Validators.pattern(/^[1-9]+[0-9]*$/),
               ]),
             })
-          );
+          ); //4
         }
       }
     }
