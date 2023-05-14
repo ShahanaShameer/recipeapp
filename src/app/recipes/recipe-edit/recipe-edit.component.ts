@@ -32,19 +32,20 @@ export class RecipeEditComponent {
   }
 
   public onSubmit(): void {
-    console.log('onSubmit', this.recipeForm, this.recipeForm.value);
-    // if (this.editMode) {
-    //   this.recipeService.updateRecipe(this.id, this.recipeForm.value);
-    // } else {
-    //   this.recipeService.addRecipe(this.recipeForm.value);
-    // }
+    if (this.editMode) {
+      this.recipeService.updateRecipe(this.id, this.recipeForm.value);
+    } else {
+      this.recipeService.addRecipe(this.recipeForm.value);
+    }
+
+    console.log('onSubmit', this.recipeForm);
   }
 
   public onAddIngredient(): void {
     (<FormArray>this.recipeForm.get('recipeIngredients')).push(
       new FormGroup({
         name: new FormControl(null, Validators.required),
-        Amount: new FormControl(null, [
+        amount: new FormControl(null, [
           Validators.required,
           Validators.pattern(/^[1-9]+[0-9]*$/),
         ]),
@@ -71,9 +72,10 @@ export class RecipeEditComponent {
 
       if (recipe['ingredients']) {
         for (let ingredient of recipe.ingredients) {
-          const recipeIngredients = this.recipeForm.get(
-            'recipeIngredients'
-          ) as FormArray;
+          const recipeIngredients = <FormArray>(
+            this.recipeForm.get('recipeIngredients')
+          );
+
           recipeIngredients.push(
             new FormGroup({
               name: new FormControl(ingredient.name, Validators.required),
