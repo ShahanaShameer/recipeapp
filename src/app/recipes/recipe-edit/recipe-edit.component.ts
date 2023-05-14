@@ -52,14 +52,10 @@ export class RecipeEditComponent {
   }
 
   private initForm(): void {
-    let recipeName = '';
-    let recipeImagePath = '';
-    let recipeDescription = '';
-
     this.recipeForm = new FormGroup({
-      name: new FormControl(recipeName, Validators.required),
-      imagePath: new FormControl(recipeImagePath, Validators.required),
-      description: new FormControl(recipeDescription, Validators.required),
+      name: new FormControl('', Validators.required),
+      imagePath: new FormControl('', Validators.required),
+      description: new FormControl('', Validators.required),
       recipeIngredients: new FormArray([]),
     });
 
