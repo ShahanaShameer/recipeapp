@@ -65,9 +65,12 @@ export class RecipeEditComponent {
 
     if (this.editMode) {
       const recipe: Recipe = this.recipeService.getRecipe(this.id);
-      recipeName = recipe.name;
-      recipeImagePath = recipe.imagePath;
-      recipeDescription = recipe.description;
+
+      this.recipeForm.patchValue({
+        name: recipe.name,
+        imagePath: recipe.imagePath,
+        description: recipe.description,
+      });
 
       if (recipe['ingredients']) {
         for (let ingredient of recipe.ingredients) {
