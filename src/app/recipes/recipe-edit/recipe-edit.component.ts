@@ -9,9 +9,9 @@ import { RecipeService } from '../recipe.service';
   styleUrls: ['./recipe-edit.component.css'],
 })
 export class RecipeEditComponent {
-  id: number;
-  editMode = false;
-  recipeForm: FormGroup;
+  private id: number;
+  private editMode = false;
+  public recipeForm: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
@@ -27,14 +27,16 @@ export class RecipeEditComponent {
       }
     });
   }
-  onSubmit() {
+
+  public onSubmit(): void {
     if (this.editMode) {
       this.recipeService.updateRecipe(this.id, this.recipeForm.value);
     } else {
       this.recipeService.addRecipe(this.recipeForm.value);
     }
   }
-  onAddIngredient() {
+
+  public onAddIngredient(): void {
     (<FormArray>this.recipeForm.get('recipeIngredients')).push(
       new FormGroup({
         name: new FormControl(null, Validators.required),
@@ -46,7 +48,7 @@ export class RecipeEditComponent {
     );
   }
 
-  private initForm() {
+  private initForm(): void {
     let recipeName = '';
     let recipeImagePath = '';
     let recipeDescription = '';
@@ -96,6 +98,7 @@ export class RecipeEditComponent {
       recipeIngredients: recipeIngredients,
     });
   }
+
   /**
    * A getter function to get form controls
    */
