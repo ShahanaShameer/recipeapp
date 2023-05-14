@@ -32,11 +32,12 @@ export class RecipeEditComponent {
   }
 
   public onSubmit(): void {
-    if (this.editMode) {
-      this.recipeService.updateRecipe(this.id, this.recipeForm.value);
-    } else {
-      this.recipeService.addRecipe(this.recipeForm.value);
-    }
+    console.log('onSubmit', this.recipeForm, this.recipeForm.value);
+    // if (this.editMode) {
+    //   this.recipeService.updateRecipe(this.id, this.recipeForm.value);
+    // } else {
+    //   this.recipeService.addRecipe(this.recipeForm.value);
+    // }
   }
 
   public onAddIngredient(): void {
