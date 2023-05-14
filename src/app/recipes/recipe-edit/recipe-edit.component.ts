@@ -26,6 +26,8 @@ export class RecipeEditComponent {
         this.editMode = true;
       }
     });
+
+    this.initForm();
   }
 
   public onSubmit(): void {
@@ -52,51 +54,37 @@ export class RecipeEditComponent {
     let recipeName = '';
     let recipeImagePath = '';
     let recipeDescription = '';
-    let recipeIngredients = new FormArray([]);
-    this.recipeForm = new FormGroup({
-      name: new FormControl(recipeName),
-      imagePath: new FormControl(recipeImagePath),
-      description: new FormControl(recipeDescription),
-    });
 
-    const recipe = this.recipeService.getRecipe(this.id);
+    this.recipeForm = new FormGroup({
+      name: new FormControl(recipeName, Validators.required),
+      imagePath: new FormControl(recipeImagePath, Validators.required),
+      description: new FormControl(recipeDescription, Validators.required),
+      recipeIngredients: new FormArray([]),
+    });
 
     if (this.editMode) {
       const recipe = this.recipeService.getRecipe(this.id);
       recipeName = recipe.name;
       recipeImagePath = recipe.imagePath;
       recipeDescription = recipe.description;
-    }
-    this.recipeForm = new FormGroup({
-      name: new FormControl(recipeName),
-      imagePath: new FormControl(recipeImagePath),
-      description: new FormControl(recipeDescription),
-      recipeIngredients: recipeIngredients,
-    });
 
-    if (recipe['ingredients']) {
-      for (let ingredient of recipe.ingredients) {
-        const recipeIngredients = this.recipeForm.get(
-          'recipeIngredients'
-        ) as FormArray;
-        recipeIngredients.push(
-          new FormGroup({
-            name: new FormControl(ingredient.name, Validators.required),
-            amount: new FormControl(ingredient.amount, [
-              Validators.required,
-              Validators.pattern(/^[1-9]+[0-9]*$/),
-            ]),
-          })
-        );
+      if (recipe['ingredients']) {
+        for (let ingredient of recipe.ingredients) {
+          const recipeIngredients = this.recipeForm.get(
+            'recipeIngredients'
+          ) as FormArray;
+          recipeIngredients.push(
+            new FormGroup({
+              name: new FormControl(ingredient.name, Validators.required),
+              amount: new FormControl(ingredient.amount, [
+                Validators.required,
+                Validators.pattern(/^[1-9]+[0-9]*$/),
+              ]),
+            })
+          );
+        }
       }
     }
-
-    this.recipeForm = new FormGroup({
-      name: new FormControl(recipeName, Validators.required),
-      imagePath: new FormControl(recipeImagePath, Validators.required),
-      description: new FormControl(recipeDescription, Validators.required),
-      recipeIngredients: recipeIngredients,
-    });
   }
 
   /**
