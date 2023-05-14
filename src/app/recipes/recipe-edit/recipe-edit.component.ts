@@ -1,15 +1,7 @@
 import { Component } from '@angular/core';
-import {
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { RecipeService } from '../recipe.service';
-import { Recipe } from '../recipe.model';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -23,16 +15,9 @@ export class RecipeEditComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private recipeService: RecipeService,
-    private fb: FormBuilder
+    private recipeService: RecipeService
   ) {}
   ngOnInit() {
-    // this.recipeForm = this._formBuilder.group({
-    //   name: [ "", Validators.required ],
-    //   imagePath:[ "", Validators.required ],
-    //   description:[ "", Validators.required ]
-
-    // });
     this.route.params.subscribe((params: Params) => {
       this.id = +params['id'];
       this.editMode = params['id'] != null;
@@ -109,8 +94,10 @@ export class RecipeEditComponent {
       recipeIngredients: recipeIngredients,
     });
   }
-  get controls() {
-    // a getter!
+  /**
+   * A getter function to get form controls
+   */
+  get controls(): any {
     return (<FormArray>this.recipeForm.get('recipeIngredients')).controls;
   }
 }
