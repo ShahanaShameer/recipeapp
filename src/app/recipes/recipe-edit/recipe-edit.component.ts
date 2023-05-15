@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, ParamMap, Params } from '@angular/router';
+import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
 import { RecipeService } from '../recipe.service';
 import { Recipe } from '../recipe.model';
 
@@ -16,8 +16,8 @@ export class RecipeEditComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private recipeService: RecipeService
-  ) {}
+    private recipeService: RecipeService,
+    private router:Router) {}
 
   ngOnInit() {
     // Detect recipe index from route param and determine whether editMode or not
@@ -46,7 +46,9 @@ export class RecipeEditComponent {
     }
 
     console.log('onSubmit', this.recipeForm);
+    this.onCancel();
   }
+  
 
   /**
    * On clicking add ingredient button
@@ -62,6 +64,12 @@ export class RecipeEditComponent {
         ]),
       })
     );
+  }
+  onDeleteIngredient(index:number){
+   (<FormArray>this.recipeForm.get('recipeIngredients')).removeAt(index)
+  }
+  onCancel(){
+     this.router.navigate(['../'],{relativeTo:this.route})
   }
 
   /**
@@ -114,4 +122,5 @@ export class RecipeEditComponent {
   get controls(): any {
     return (<FormArray>this.recipeForm.get('recipeIngredients')).controls;
   }
+ 
 }

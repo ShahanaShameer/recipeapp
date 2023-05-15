@@ -13,7 +13,7 @@
           >
             Save
           </button>
-          <button type="button" class="btn btn-danger">cancel</button>
+          <button type="button" class="btn btn-danger" (click)="onCancel()">cancel</button>
         </div>
       </div>
 
@@ -42,7 +42,7 @@
               id="imagePath"
               formControlName="imagePath"
               class="form-control"
-            />
+            #imagePath>
           </div>
         </div>
       </div>
@@ -50,7 +50,7 @@
       <!-- Image URL???????? -->
       <div class="row">
         <div class="col-xs-12">
-          <img src="" class="img-responsive" />
+          <img [src]="imagePath.value" class="img-responsive" />
         </div>
       </div>
 
@@ -76,8 +76,9 @@
           <div
             class="row"
             *ngFor="let ingredientCtrl of controls; let i = index"
+            [formGroupName]="i" style="margin-top: 10px;"
           >
-            <div [formGroupName]="i" style="margin-top: 10px">
+            
               <!-- Ingredient Name -->
               <div class="col-xs-8">
                 <input
@@ -97,9 +98,11 @@
               </div>
 
               <!-- Ingredient Cancel Button -->
-              <button type="button" class="btn btn-danger">X</button>
+              <button type="button" 
+              class="btn btn-danger"
+              (click)="onDeleteIngredient(i)">X</button>
             </div>
-          </div>
+          </div> 
         </div>
 
         <!-- Add Ingredient Button Row -->
@@ -115,7 +118,7 @@
             </button>
           </div>
         </div>
-      </div>
+    
     </form>
   </div>
 </div>
