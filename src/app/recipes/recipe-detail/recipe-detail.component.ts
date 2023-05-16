@@ -25,9 +25,12 @@ ngOnInit(){
       this.recipe=this.recipeService.getRecipe(this.id)
     }
   )
+  console.log(this.id,this.recipe);
+  
 }
 
  onAddToShoppingList(){
+  console.log(this.recipe.ingredients);
   this.recipeService.addIngredientsToShoppingList(this.recipe.ingredients);
  }
  onEditRecipe(){

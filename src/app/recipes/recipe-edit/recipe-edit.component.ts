@@ -52,10 +52,10 @@ export class RecipeEditComponent {
 
   /**
    * On clicking add ingredient button
-   * Functionality to add new ingredient form group to recipeIngredients formArray
+   * Functionality to add new ingredient form group to ingredients formArray
    */
   public onAddIngredient(): void {
-    (<FormArray>this.recipeForm.get('recipeIngredients')).push(
+    (<FormArray>this.recipeForm.get('ingredients')).push(
       new FormGroup({
         name: new FormControl(null, Validators.required),
         amount: new FormControl(null, [
@@ -66,7 +66,7 @@ export class RecipeEditComponent {
     );
   }
   onDeleteIngredient(index:number){
-   (<FormArray>this.recipeForm.get('recipeIngredients')).removeAt(index)
+   (<FormArray>this.recipeForm.get('ingredients')).removeAt(index)
   }
   onCancel(){
      this.router.navigate(['../'],{relativeTo:this.route})
@@ -77,14 +77,14 @@ export class RecipeEditComponent {
    * 1. Initialize recipe Form
    * 2. If in edit mode, fetch the current recipe details
    * 3. Pre-populate the recipeForm if editing a recipe
-   * 4. Pre-populate the recipeIngredients form array
+   * 4. Pre-populate the ingredients form array
    */
   private initForm(): void {
     this.recipeForm = new FormGroup({
       name: new FormControl('', Validators.required),
       imagePath: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
-      recipeIngredients: new FormArray([]),
+      ingredients: new FormArray([]),
     }); //1
 
     if (this.editMode) {
@@ -98,11 +98,11 @@ export class RecipeEditComponent {
 
       if (recipe['ingredients']) {
         for (let ingredient of recipe.ingredients) {
-          const recipeIngredients = <FormArray>(
-            this.recipeForm.get('recipeIngredients')
+          const ingredients = <FormArray>(
+            this.recipeForm.get('ingredients')
           );
 
-          recipeIngredients.push(
+          ingredients.push(
             new FormGroup({
               name: new FormControl(ingredient.name, Validators.required),
               amount: new FormControl(ingredient.amount, [
@@ -120,7 +120,7 @@ export class RecipeEditComponent {
    * A getter function to get form controls
    */
   get controls(): any {
-    return (<FormArray>this.recipeForm.get('recipeIngredients')).controls;
+    return (<FormArray>this.recipeForm.get('ingredients')).controls;
   }
  
 }
