@@ -25,6 +25,15 @@ export class RecipeService {
  
   constructor(private slService: ShoppingListService) {}
 
+  /**
+   * Purpose: 
+   * Created/Modified By:  
+   * Created On: 16-05-2023
+   * Steps:
+   * 1.   
+   * 2.   
+   * 3.   
+   */
   setRecipes(recipes:Recipe[]){
     this.recipes=recipes;
     this.recipesChanged.next(this.recipes.slice());
